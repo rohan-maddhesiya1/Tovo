@@ -3,6 +3,7 @@ const productContainer = document.getElementById("product-container");
 
 import { products } from "../data/products.js";
 
+let cart = [];
 
 function renderProducts(products){
     productContainer.innerHTML = "";
@@ -17,7 +18,10 @@ function renderProducts(products){
             <div class="prices">
                 <span class="discounted-price">₹${product.discountedPrice}</span>
                 <span class="price">₹${product.price}</span>
-                <button id="add-to-cart">+</button>
+                <div class="cart-counter">
+                    <button class="add-to-cart" data-product-id="${product.id}">Add</button>
+                </div>
+                
             </div>
             </div>
         `;
@@ -25,3 +29,58 @@ function renderProducts(products){
 }
 
 renderProducts(products);
+
+productContainer.addEventListener("click", (e)=>{
+  if(e.target.classList.contains("add-to-cart")){
+    const productId = e.target.getAttribute("data-product-id");
+    const cartCounter = e.target.closest(".cart-counter");
+
+    cart.push({
+      id: productId,
+      quantity: 1
+    })
+    cartCounter.classList.add("active");
+
+    cartCounter.innerHTML = `
+        <button class="decrement" data-product-id="${productId}">-</button>
+        <span class="count" data-product-id="${productId}">1</span>
+        <button class="increment" data-product-id="${productId}">+</button>
+    `;
+  }
+
+  if(e.target.classList.contains("increment") || e.target.classList.contains('decrement')){
+    const productId = e.target.getAttribute("data-product-id");
+    const countElement = document.querySelector(`.count[data-product-id="${productId}"]`);
+    const cartItem = cart.find(item => item.id === productId);
+
+    let count = parseInt(countElement.textContent);
+
+    if(e.target.classList.contains("increment")){
+      count++;
+      countElement.textContent = count;
+      
+    } 
+    else if(e.target.classList.contains("decrement") && count > 1){
+      count--;
+      countElement.textContent = count;
+    }
+    else if(e.target.classList.contains("decrement") && count === 1){
+      cart = cart.filter(item => item.id !== productId);
+      const cartCounter = e.target.closest(".cart-counter");
+      cartCounter.classList.remove("active");
+      cartCounter.innerHTML = `
+          <button class="add-to-cart" data-product-id="${productId}">Add</button>
+      `;
+    }
+
+    //Updating cart value
+    if(cartItem){
+      cartItem.quantity = count;
+    }
+
+    console.log(cart);
+
+  } 
+    
+})
+
