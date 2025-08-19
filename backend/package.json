@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "./src/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon ./src/server.js"
+
   },
   "type": "module",
   "author": "Rohan Maddhesiya",
@@ -15,6 +17,7 @@
     "express": "^5.1.0",
     "fs": "^0.0.1-security",
     "mongoose": "^8.17.1",
+    "nodemon": "^3.1.10",
     "path": "^0.12.7"
   }
 }
