@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import connectDB from './config/db.js';
 import Product from './models/product.js';
+import {userRouter} from './routes/userRoutes.js';
 
 const PORT = 3000;
 
@@ -16,6 +17,10 @@ app.get('/api/products',async (req,res)=>{
     const products = await Product.find();
     res.json(products);
 })
+
+
+app.use('/api/users', userRouter);
+
 
 
 app.listen(PORT, () => {
