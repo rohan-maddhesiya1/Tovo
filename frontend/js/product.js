@@ -1,43 +1,55 @@
 
 const productContainer = document.getElementById("product-container");
 
-import { products } from "../data/products.js";
+// import { products } from "../data/products.js";
 
 let cart = [];
 
-function renderProducts(products){
-    productContainer.innerHTML = "";
-    products.forEach(product => {
-        productContainer.innerHTML += `
+
+async function getProducts() {
+  try {
+    const res = await fetch('http://localhost:3000/api/products');
+    const products = await res.json();
+    console.log(products);
+    renderProducts(products);
+  }
+  catch (err) {
+    console.log(err);
+  }
+}
+
+function renderProducts(products) {
+  productContainer.innerHTML = "";
+  products.forEach(product => {
+    productContainer.innerHTML += `
             <div class = "product">
             <div class="image-container">
                 <img src="${product.image}" alt="${product.name}">
             </div>
             <h3>${product.name}</h3>
-            <span class="quantity">${product.quantity}</span>
+            <span class="quantity">${product.size}</span>
             <div class="prices">
-                <span class="discounted-price">₹${product.discountedPrice}</span>
-                <span class="price">₹${product.price}</span>
+                <span class="discounted-price" data-discounted-price="${product.discountPrice}">₹${product.discountPrice}</span>
+                <span class="price">₹${product.actualPrice}</span>
                 <div class="cart-counter">
-                    <button class="add-to-cart" data-product-id="${product.id}">Add</button>
+                    <button class="add-to-cart" data-product-id="${product._id}">Add</button>
                 </div>
                 
             </div>
             </div>
         `;
-    });
+  });
 }
 
-renderProducts(products);
 
-productContainer.addEventListener("click", (e)=>{
-  if(e.target.classList.contains("add-to-cart")){
+productContainer.addEventListener("click", (e) => {
+  if (e.target.classList.contains("add-to-cart")) {
     const productId = e.target.getAttribute("data-product-id");
     const cartCounter = e.target.closest(".cart-counter");
 
     cart.push({
       id: productId,
-      quantity: 1
+      quantity: 1,
     })
     cartCounter.classList.add("active");
 
@@ -48,23 +60,24 @@ productContainer.addEventListener("click", (e)=>{
     `;
   }
 
-  if(e.target.classList.contains("increment") || e.target.classList.contains('decrement')){
+  if (e.target.classList.contains("increment") || e.target.classList.contains('decrement')) {
+    
     const productId = e.target.getAttribute("data-product-id");
     const countElement = document.querySelector(`.count[data-product-id="${productId}"]`);
     const cartItem = cart.find(item => item.id === productId);
 
     let count = parseInt(countElement.textContent);
 
-    if(e.target.classList.contains("increment")){
+    if (e.target.classList.contains("increment")) {
       count++;
       countElement.textContent = count;
-      
-    } 
-    else if(e.target.classList.contains("decrement") && count > 1){
+
+    }
+    else if (e.target.classList.contains("decrement") && count > 1) {
       count--;
       countElement.textContent = count;
     }
-    else if(e.target.classList.contains("decrement") && count === 1){
+    else if (e.target.classList.contains("decrement") && count === 1) {
       cart = cart.filter(item => item.id !== productId);
       const cartCounter = e.target.closest(".cart-counter");
       cartCounter.classList.remove("active");
@@ -74,13 +87,14 @@ productContainer.addEventListener("click", (e)=>{
     }
 
     //Updating cart value
-    if(cartItem){
+    if (cartItem) {
       cartItem.quantity = count;
     }
 
     console.log(cart);
 
-  } 
-    
+  }
+
 })
 
+getProducts();
