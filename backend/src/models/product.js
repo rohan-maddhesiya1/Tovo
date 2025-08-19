@@ -23,6 +23,9 @@ const productSchema = new mongoose.Schema({
     },
     stock: {
         type: Number,
+    },
+    size: {
+        type: String,
         required: true
     }
 })
