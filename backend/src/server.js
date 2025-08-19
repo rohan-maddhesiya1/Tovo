@@ -1,8 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import connectDB from './config/db.js';
-import Product from './models/product.js';
-import {userRouter} from './routes/userRoutes.js';
+import userRouter from './routes/userRoutes.js';
+import productRouter from './routes/productRoutes.js';
 
 const PORT = 3000;
 
@@ -13,12 +13,8 @@ app.use(express.json());
 app.use(cors());
 connectDB();
 
-app.get('/api/products',async (req,res)=>{
-    const products = await Product.find();
-    res.json(products);
-})
 
-
+app.use('/api/products', productRouter);
 app.use('/api/users', userRouter);
 
 
