@@ -21,10 +21,35 @@ body {
     overflow: hidden;
 }
 
-#container>.title {
+#container> .nav> .title {
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 20px;
+}
+
+
+.nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.cart{
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.cart:hover{
+    cursor: pointer;
+    color: #28a745;
+}
+
+.cart-icon {
+    font-size: 24px;
+    margin-right: 5px;
 }
 
 .products {

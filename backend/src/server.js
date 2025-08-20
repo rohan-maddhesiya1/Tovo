@@ -17,14 +17,16 @@ app.use(express.json());
 app.use(cors());
 connectDB();
 
-app.use(express.static(path.join(__dirname, '../../frontend')));
-app.get('/' , (req,res)=>{
-    res.sendFile(path.join(__dirname, '../../frontend/html/login.html'));
-})
 
 app.use('/api/products', productRouter);
 app.use('/api/users', userRouter);
 app.use('/api/carts', cartRouter);
+
+
+app.use(express.static(path.join(__dirname, '../../frontend')));
+app.get('/' , (req,res)=>{
+    res.sendFile(path.join(__dirname, '../../frontend/html/login.html'));
+})
 
 
 

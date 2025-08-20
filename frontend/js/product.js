@@ -1,5 +1,6 @@
 
 const productContainer = document.getElementById("product-container");
+const cartIcon = document.getElementById("cart");
 
 // import { products } from "../data/products.js";
 
@@ -10,7 +11,6 @@ async function getProducts() {
   try {
     const res = await fetch('http://localhost:3000/api/products');
     const products = await res.json();
-    console.log(products);
     renderProducts(products);
   }
   catch (err) {
@@ -43,12 +43,13 @@ function renderProducts(products) {
 
 
 productContainer.addEventListener("click", (e) => {
+
   if (e.target.classList.contains("add-to-cart")) {
     const productId = e.target.getAttribute("data-product-id");
     const cartCounter = e.target.closest(".cart-counter");
 
     cart.push({
-      id: productId,
+      productId: productId,
       quantity: 1,
     })
     cartCounter.classList.add("active");
@@ -64,7 +65,7 @@ productContainer.addEventListener("click", (e) => {
     
     const productId = e.target.getAttribute("data-product-id");
     const countElement = document.querySelector(`.count[data-product-id="${productId}"]`);
-    const cartItem = cart.find(item => item.id === productId);
+    const cartItem = cart.find(item => item.productId === productId);
 
     let count = parseInt(countElement.textContent);
 
@@ -78,7 +79,7 @@ productContainer.addEventListener("click", (e) => {
       countElement.textContent = count;
     }
     else if (e.target.classList.contains("decrement") && count === 1) {
-      cart = cart.filter(item => item.id !== productId);
+      cart = cart.filter(item => item.productId !== productId);
       const cartCounter = e.target.closest(".cart-counter");
       cartCounter.classList.remove("active");
       cartCounter.innerHTML = `
@@ -90,11 +91,44 @@ productContainer.addEventListener("click", (e) => {
     if (cartItem) {
       cartItem.quantity = count;
     }
-
-    console.log(cart);
-
   }
 
 })
+
+
+
+async function addToCart(data){
+  try{
+    const respone = await fetch('http://localhost:3000/api/carts/add',{
+      method: 'POST', 
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    const result = await respone.json();
+    if(respone.status === 200 || respone.status === 201) {
+    window.location.href = "/html/cart.html"
+    }else{
+      console.log(result.message);
+    }
+    
+  }catch(err){
+    console.log(err);
+  }
+} 
+
+
+cartIcon.addEventListener("click",()=>{
+  console.log("Cart clicked");
+  const userId = sessionStorage.getItem('userId');
+  const data = {
+    userId,
+    products: cart
+  }
+
+  addToCart(data);
+})
+
 
 getProducts();
