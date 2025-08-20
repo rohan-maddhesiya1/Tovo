@@ -52,7 +52,7 @@ export const addToCart= async (req, res) => {
 
 
 export const getCartItems = async (req, res)=>{
-    const { userId } = req.body;
+    const userId = req.params.userId;
 
     if (!userId) {
         return res.status(400).json({ message: "User ID is required" });
@@ -76,12 +76,30 @@ export const getCartItems = async (req, res)=>{
             }
         }
         const cartDetails = {
+            cartId: cart._id,
             userId: cart.userId,
             items: detailedItems,
             totalAmount: cart.totalAmount
         }
 
         return res.status(200).json(cartDetails);
+    } catch (error) {
+        return res.status(500).json({ message: "Internal server error" });
+    }
+}
+
+export const deleteCartItems = async (req,res)=>{
+    const cartId = req.params.cartId;
+    if (!cartId) {
+        return res.status(400).json({ message: "Cart ID is required" });
+    }
+    try{
+        const cart = await Cart.findById(cartId);
+        if (!cart) {
+            return res.status(404).json({ message: "Cart not found" });
+        }
+        await Cart.deleteOne({ _id: cartId });
+        return res.status(200).json({ message: "Cart deleted successfully" });
     } catch (error) {
         return res.status(500).json({ message: "Internal server error" });
     }

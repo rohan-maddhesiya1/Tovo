@@ -35,6 +35,11 @@ body {
     padding: 10px 0;
 }
 
+#orderTitle:hover {
+    cursor: pointer;
+    color: #28a745;
+}
+
 .cart{
     display: flex;
     align-items: center;

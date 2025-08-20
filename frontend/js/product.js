@@ -1,46 +1,28 @@
 
 const productContainer = document.getElementById("product-container");
 const cartIcon = document.getElementById("cart");
+const orderIcon = document.getElementById("orderTitle");
 
 // import { products } from "../data/products.js";
 
 let cart = [];
 
 
-async function getProducts() {
-  try {
-    const res = await fetch('http://localhost:3000/api/products');
-    const products = await res.json();
-    renderProducts(products);
-  }
-  catch (err) {
-    console.log(err);
-  }
-}
+orderIcon.addEventListener("click", () => {
+  window.location.href = "../html/orders.html";
+});
 
-function renderProducts(products) {
-  productContainer.innerHTML = "";
-  products.forEach(product => {
-    productContainer.innerHTML += `
-            <div class = "product">
-            <div class="image-container">
-                <img src="${product.image}" alt="${product.name}">
-            </div>
-            <h3>${product.name}</h3>
-            <span class="quantity">${product.size}</span>
-            <div class="prices">
-                <span class="discounted-price" data-discounted-price="${product.discountPrice}">₹${product.discountPrice}</span>
-                <span class="price">₹${product.actualPrice}</span>
-                <div class="cart-counter">
-                    <button class="add-to-cart" data-product-id="${product._id}">Add</button>
-                </div>
-                
-            </div>
-            </div>
-        `;
-  });
-}
 
+cartIcon.addEventListener("click",()=>{
+  console.log("Cart clicked");
+  const userId = sessionStorage.getItem('userId');
+  const data = {
+    userId,
+    products: cart
+  }
+
+  addToCart(data);
+})
 
 productContainer.addEventListener("click", (e) => {
 
@@ -96,6 +78,41 @@ productContainer.addEventListener("click", (e) => {
 })
 
 
+async function getProducts() {
+  try {
+    const res = await fetch('http://localhost:3000/api/products');
+    const products = await res.json();
+    renderProducts(products);
+  }
+  catch (err) {
+    console.log(err);
+  }
+}
+
+function renderProducts(products) {
+  productContainer.innerHTML = "";
+  products.forEach(product => {
+    productContainer.innerHTML += `
+            <div class = "product">
+            <div class="image-container">
+                <img src="${product.image}" alt="${product.name}">
+            </div>
+            <h3>${product.name}</h3>
+            <span class="quantity">${product.size}</span>
+            <div class="prices">
+                <span class="discounted-price" data-discounted-price="${product.discountPrice}">₹${product.discountPrice}</span>
+                <span class="price">₹${product.actualPrice}</span>
+                <div class="cart-counter">
+                    <button class="add-to-cart" data-product-id="${product._id}">Add</button>
+                </div>
+                
+            </div>
+            </div>
+        `;
+  });
+}
+
+
 
 async function addToCart(data){
   try{
@@ -119,16 +136,7 @@ async function addToCart(data){
 } 
 
 
-cartIcon.addEventListener("click",()=>{
-  console.log("Cart clicked");
-  const userId = sessionStorage.getItem('userId');
-  const data = {
-    userId,
-    products: cart
-  }
 
-  addToCart(data);
-})
 
 
 getProducts();

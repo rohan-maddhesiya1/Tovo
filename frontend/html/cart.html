@@ -15,107 +15,24 @@
 <body>
      <div id="container">
         <div class="nav">
-          <div class="cart" id="cart">
+          <div class="cart" id="cartLogo">
               <span class="material-symbols-outlined" class="cart-icon"> shopping_cart </span>
               <p>Cart</p>
           </div>
-        <p class="title">Products</p>   
-      </div>
-
-      <div class="products">
-
-        <div class="product">
-            <img src="../src/assets/icons/amulButter.png" alt="Product Image" class="product-image">
-            <div class="product-details">
-                <p class="product-name">Amul Butter</p>
-                <p class="product-size">700g</p>
-                <div class="product-price">
-                    <p class="discounted-price">₹50</p>
-                    <p class="original-price">₹60</p>
-                </div>
-
-            </div>
-            <div class="product-quantity">
-                <button class="decrease">-</button>
-                <p class="quantity-display">1</p>
-                <button class="increase">+</button>
-            </div>
+          <p class="title" id="orderTitle">Orders</p>
+          <p class="title" id="productTitle">Products</p>   
         </div>
 
-        <div class="product">
-            <img src="../src/assets/icons/amulButter.png" alt="Product Image" class="product-image">
-            <div class="product-details">
-                <p class="product-name">Amul Butter</p>
-                <p class="product-size">700g</p>
-                <div class="product-price">
-                    <p class="discounted-price">₹50</p>
-                    <p class="original-price">₹60</p>
-                </div>
-
-            </div>
-            <div class="product-quantity">
-                <button class="decrease">-</button>
-                <p class="quantity-display">1</p>
-                <button class="increase">+</button>
-            </div>
-        </div>
-
-        <div class="product">
-            <img src="../src/assets/icons/amulButter.png" alt="Product Image" class="product-image">
-            <div class="product-details">
-                <p class="product-name">Amul Butter</p>
-                <p class="product-size">700g</p>
-                <div class="product-price">
-                    <p class="discounted-price">₹50</p>
-                    <p class="original-price">₹60</p>
-                </div>
-
-            </div>
-            <div class="product-quantity">
-                <button class="decrease">-</button>
-                <p class="quantity-display">1</p>
-                <button class="increase">+</button>
-            </div>
-        </div>
-
-        <div class="product">
-            <img src="../src/assets/icons/amulButter.png" alt="Product Image" class="product-image">
-            <div class="product-details">
-                <p class="product-name">Amul Butter</p>
-                <p class="product-size">700g</p>
-                <div class="product-price">
-                    <p class="discounted-price">₹50</p>
-                    <p class="original-price">₹60</p>
-                </div>
-
-            </div>
-            <div class="product-quantity">
-                <button class="decrease">-</button>
-                <p class="quantity-display">1</p>
-                <button class="increase">+</button>
-            </div>
-        </div>
-
-        <div class="order-summary">
-            <p class="title">Order Summary</p>
-            <div class="item-total">
-                <p>Item Total: </p>
-                <p>₹50</p>
-            </div>
-            <div class="delivery">
-                <p>Delivery Charge:</p>
-                <p>₹10</p>
-            </div>
-            <div class="total">
-                <p>Total:</p>
-                <p>₹60</p>
-            </div>
-        </div>
+      <div class="products" id="products">        
+        //cart products goes here
 
       </div>
 
       <div class="pay" id="pay">
           <p class="title">Payment</p>
       </div>
+
+      <script src="../js/cart.js"></script>
+      <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </body>
 </html>
