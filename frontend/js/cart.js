@@ -1,10 +1,10 @@
+
 const cartProducts = document.getElementById("products");
 const productTitle = document.getElementById("productTitle");
 const orderTitle = document.getElementById("orderTitle");
 const pay = document.getElementById("pay");
 
 let cartDetails = [];
-
 
 productTitle.addEventListener("click", () => {
     window.location.href = "../html/products.html";
@@ -124,7 +124,7 @@ async function handlePayment() {
                 address: "Customer Address"
             },
             theme: {
-                color: "#F37254"
+                color: "#28a745"
             }
         };
 
@@ -154,9 +154,8 @@ async function createOrder() {
         console.log("Order created:", result);
 
         if(response.status === 201) {
-            alert("Order placed successfully!");
             deleteCart(cartDetails.cartId);
-            // window.location.href = "../html/products.html"; 
+            window.location.href = "../html/orders.html"; 
         }
     } catch (error) {
         console.error("Error creating order:", error);
@@ -177,3 +176,6 @@ async function deleteCart(cartId){
         console.error("Error deleting cart:", error);
     }
 }
+
+
+

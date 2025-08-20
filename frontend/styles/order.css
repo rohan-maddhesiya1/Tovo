@@ -1,0 +1,117 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #fafafa;
+  height: 100vh;
+}
+
+#container {
+  max-width: 600px;
+  max-height: 95%; /* Set a max height for the container */
+  height: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#container > .nav > .title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+}
+
+#orderTitle {
+  color: #28a745;
+  border-bottom: 1px solid #28a745;
+}
+#productsTitle:hover {
+  cursor: pointer;
+  color: #28a745;
+}
+
+.cart {
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.cart:hover {
+  cursor: pointer;
+  color: #28a745;
+}
+
+.cart-icon {
+  font-size: 24px;
+  margin-right: 5px;
+}
+
+#orders-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 20px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  max-height: fit-content;
+}
+
+.order-card {
+  background: linear-gradient(135deg, #e0ffe0 0%, #f8f8ff 100%);
+  border: 1px solid #b2f0b2;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(40, 167, 69, 0.1);
+  padding: 24px 28px;
+  margin-bottom: 18px;
+  transition: box-shadow 0.2s, transform 0.2s;
+  position: relative;
+  height: 200px;
+  width: 88%;
+}
+
+.order-card:hover {
+  box-shadow: 0 8px 32px rgba(40, 167, 69, 0.18);
+  transform: translateY(-2px) scale(1.02);
+}
+
+.order-card p {
+  margin: 6px 0;
+  font-size: 16px;
+  color: #333;
+  letter-spacing: 0.2px;
+  font-weight: 500;
+}
+
+.order-card ul {
+  margin: 10px 0 0 20px;
+  padding: 0;
+  font-size: 15px;
+  color: #444;
+}
+
+.order-card li {
+  margin-bottom: 4px;
+  padding-left: 8px;
+  position: relative;
+}
+.order-card li::before {
+  content: "\2022";
+  color: #28a745;
+  font-size: 18px;
+  position: absolute;
+  left: -12px;
+  top: 0;
+}

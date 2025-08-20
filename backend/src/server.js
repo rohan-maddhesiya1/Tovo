@@ -6,6 +6,7 @@ import productRouter from './routes/productRoutes.js';
 import cartRouter from './routes/cartsRoutes.js';
 import orderRouter from './routes/orderRoutes.js';
 import paymentRouter from './routes/paymentRoutes.js';
+import deliveryPartnerRouter from './routes/deliveryPartnerRoutes.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -25,6 +26,7 @@ app.use('/api/users', userRouter);
 app.use('/api/carts', cartRouter);
 app.use('/api/orders', orderRouter);
 app.use('/api/payments', paymentRouter);
+app.use('/api/delivery-partners', deliveryPartnerRouter);
 
 
 app.use(express.static(path.join(__dirname, '../../frontend')));
